@@ -14,12 +14,13 @@ export class AuthController {
   @ApiPostResponse(SignupResDto)
   @Post('signup')
   async signup(@Body() signupReqDto: SignupReqDto) {
-    return this.authService.signup('email', 'password');
+    const { id } = await this.authService.signup(signupReqDto);
+    return { id };
   }
 
   @ApiPostResponse(SigninResDto)
   @Post('signin')
   async signin(@Body() signinReqDto: SigninReqDto) {
-    return this.authService.signin({});
+    return this.authService.signin(signinReqDto);
   }
 }
