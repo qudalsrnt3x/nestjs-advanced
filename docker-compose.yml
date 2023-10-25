@@ -1,20 +1,18 @@
 version: '3.1'
 
 volumes:
-  postgres_data:
+  mysql_data:
 
 
 services:
-  postgres:
-    image: postgres:14.7
-    container_name: postgres
-    # 5432로 포워딩 할 경우 host os 에 설치된 postgre와 겹칠 수 있으므로 host에 설치된 postgre를 내려야함
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
     ports:
-      - '5434:5432'
+      - '3306:3306'
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - MYSQL_ROOT_PASSWORD=1234
+      - TZ=Asia/Seoul
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/myqsl
     restart: always
