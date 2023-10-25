@@ -12,6 +12,7 @@ async function bootstrap() {
     .setTitle('NestJS project')
     .setDescription('NestJS project API description')
     .setVersion('1.0')
+    .addBearerAuth() // Bearer 테스트 가능
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
