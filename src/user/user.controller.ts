@@ -7,6 +7,7 @@ import { ApiGetItemsResponse, ApiGetResponse } from 'src/common/decorator/swagge
 import { FindUserResDto } from './dto/res.dto';
 import { PageResDto } from 'src/common/dto/res.dto';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { User, UserAfterAuth } from 'src/common/decorator/user.decorator';
 
 @ApiTags('User')
 @ApiExtraModels(FindUserReqDto, FindUserResDto, PageResDto) // swagger에 findUserReqDto 추가
@@ -17,11 +18,12 @@ export class UserController {
   @ApiBearerAuth() 
   @ApiGetItemsResponse(FindUserResDto)
   @Get()
-  @UseGuards(JwtAuthGuard)
-  findAll(@Query() { page, size }: PageReqDto) {
+  findAll(@Query() { page, size }: PageReqDto, @User() user: UserAfterAuth) {
+    console.log(user);
     return this.userService.findAll();
   }
 
+  @ApiBearerAuth()
   @ApiGetResponse(FindUserResDto)
   @Get(':id')
   findOne(@Param('id') { id }: FindUserReqDto) {
